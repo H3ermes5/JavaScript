@@ -20,22 +20,35 @@ icon.addEventListener("click", e => {
 }
 )
 
-// Login 🕵️‍♂️
+// Login + Bucle 🕵️‍♂️ 🔄️
 
-let mensaje = "USUARIO NO REGISTRADO⚠️"
 
-function login(){
-    let user, pass;
-    
-    user = document.getElementById("usuario").value;
-    pass = document.getElementById("contraseña").value;
 
-    if(user == "Jeremias" && pass == "1234"){
+let mensaje = "USUARIO NO REGISTRADO⚠️";
+let numeroIntento = 3;
+let intentos = 0;
+let bloqueado = false;
 
-        window.location = "pagina.html";
-
+function login() {
+    if (bloqueado) {
+        alert("Acceso bloqueado. Contacte al soporte.");
+        return;
     }
-    else{
-        alert(mensaje)
+
+    let user = document.getElementById("usuario").value;
+    let pass = document.getElementById("contraseña").value;
+
+    if (user === "Jeremias" && pass === "1234") {
+        window.location.href = "pagina.html";
+        return;
+    } else {
+        intentos++;
+
+        if (intentos < numeroIntento) {
+            alert(`${mensaje}\n Intentos restantes: ${numeroIntento - intentos}`);
+        } else {
+            alert(`${mensaje}\n Acceso bloqueado. Contacte al soporte.`);
+            bloqueado = true;
+        }
     }
 }
